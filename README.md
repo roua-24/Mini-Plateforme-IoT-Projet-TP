@@ -26,17 +26,29 @@ Il s’inspire du fonctionnement des plateformes IoT modernes comme **Thinger.io
   - Historique des données  
   - Rafraîchissement automatique
 **Architecture du projet**
+
 /iot-platform
+
 ├── backend/
+
 │ ├── app.py
+
 │ ├── database.db
+
 │ └── routes/
+
 ├── frontend/
+
 │ ├── index.html
+
 │ ├── dashboard.js
+
 │ └── styles.css
+
 ├── device/
+
 │ └── capteur_code.py
+
 └── README.md
 
 **Résultats obtenus**
