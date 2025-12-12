@@ -1,4 +1,4 @@
-# Mini-Plateforme-IoT-Projet-TP
+# Mini-Plateforme-IoT-Projet-TP: SensorFlow Hub
 Ce projet est un mini-système IoT permettant la **collecte**, le **stockage**, et la **visualisation en temps réel** des données provenant de capteurs.  
 Il s’inspire du fonctionnement des plateformes IoT modernes comme **Thinger.io**.
 **Objectifs du projet** 
@@ -27,7 +27,7 @@ Il s’inspire du fonctionnement des plateformes IoT modernes comme **Thinger.io
   - Rafraîchissement automatique
 **Architecture du projet**
 
-/iot-platform
+/SensorFlow Hub
 
 ├── backend/
 
@@ -42,12 +42,13 @@ Il s’inspire du fonctionnement des plateformes IoT modernes comme **Thinger.io
 │ ├── index.html
 
 │ ├── dashboard.js
+│ ├── authentification.js
 
 │ └── styles.css
 
 ├── device/
 
-│ └── capteur_code.py
+│ └── sensor_code.ino
 
 └── README.md
 
