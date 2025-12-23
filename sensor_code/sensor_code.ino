@@ -28,8 +28,8 @@
 // ============================================
 // CONFIGURATION WIFI
 // ============================================
-const char* ssid = "VOTRE_SSID";           // Nom de votre réseau WiFi
-const char* password = "VOTRE_MOT_DE_PASSE";  // Mot de passe WiFi
+const char* ssid = "Roua";           // Nom de votre réseau WiFi
+const char* password = "12345678";  // Mot de passe WiFi
 
 // ============================================
 // CONFIGURATION SERVEUR API
@@ -78,19 +78,19 @@ void setup() {
   Serial.println("📡 Initialisation du capteur DHT...");
   dht.begin();
   delay(2000);  // Délai pour stabilisation du capteur
-  Serial.println("✅ Capteur DHT initialisé");
+  Serial.println("Capteur DHT initialisé");
   
   // Connexion au WiFi
   connectToWiFi();
   
-  Serial.println("\n🚀 Système prêt! Démarrage de l'envoi des données...\n");
+  Serial.println("\n Système prêt! Démarrage de l'envoi des données...\n");
 }
 
 // ============================================
 // FONCTION: Connexion WiFi
 // ============================================
 void connectToWiFi() {
-  Serial.print("📶 Connexion au WiFi: ");
+  Serial.print(" Connexion au WiFi: ");
   Serial.println(ssid);
   
   WiFi.begin(ssid, password);
@@ -104,16 +104,16 @@ void connectToWiFi() {
   }
   
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("\n✅ WiFi connecté!");
-    Serial.print("📍 Adresse IP: ");
+    Serial.println("\n WiFi connecté!");
+    Serial.print(" Adresse IP: ");
     Serial.println(WiFi.localIP());
-    Serial.print("📶 Puissance du signal: ");
+    Serial.print(" Puissance du signal: ");
     Serial.print(WiFi.RSSI());
     Serial.println(" dBm");
     digitalWrite(LED_BUILTIN_PIN, HIGH);  // LED allumée = connecté
   } else {
-    Serial.println("\n❌ Échec de connexion WiFi!");
-    Serial.println("⚠️  Vérifiez vos identifiants WiFi");
+    Serial.println("\n Échec de connexion WiFi!");
+    Serial.println("  Vérifiez vos identifiants WiFi");
   }
 }
 
@@ -129,18 +129,18 @@ bool readSensorData(float &temperature, float &humidity) {
   
   // Vérification si la lecture a échoué
   if (isnan(humidity) || isnan(temperature)) {
-    Serial.println("❌ Erreur de lecture du capteur DHT!");
+    Serial.println("Erreur de lecture du capteur DHT!");
     return false;
   }
   
   // Validation des plages de valeurs
   if (temperature < -40 || temperature > 80) {
-    Serial.println("⚠️  Température hors limites!");
+    Serial.println("Température hors limites!");
     return false;
   }
   
   if (humidity < 0 || humidity > 100) {
-    Serial.println("⚠️  Humidité hors limites!");
+    Serial.println("Humidité hors limites!");
     return false;
   }
   
@@ -153,7 +153,7 @@ bool readSensorData(float &temperature, float &humidity) {
 bool sendDataToServer(float temperature, float humidity) {
   // Vérifier la connexion WiFi
   if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("❌ WiFi déconnecté! Tentative de reconnexion...");
+    Serial.println("WiFi déconnecté! Tentative de reconnexion...");
     connectToWiFi();
     return false;
   }
@@ -173,7 +173,7 @@ bool sendDataToServer(float temperature, float humidity) {
   String jsonPayload;
   serializeJson(jsonDoc, jsonPayload);
   
-  Serial.println("📤 Envoi des données:");
+  Serial.println("Envoi des données:");
   Serial.println(jsonPayload);
   
   // Envoi de la requête POST
@@ -184,7 +184,7 @@ bool sendDataToServer(float temperature, float humidity) {
   // Traitement de la réponse
   if (httpResponseCode > 0) {
     String response = http.getString();
-    Serial.print("✅ Réponse serveur (");
+    Serial.print("Réponse serveur (");
     Serial.print(httpResponseCode);
     Serial.print("): ");
     Serial.println(response);
@@ -199,7 +199,7 @@ bool sendDataToServer(float temperature, float humidity) {
     
     success = true;
   } else {
-    Serial.print("❌ Erreur HTTP: ");
+    Serial.print("Erreur HTTP: ");
     Serial.println(httpResponseCode);
     Serial.print("   Erreur: ");
     Serial.println(http.errorToString(httpResponseCode));
@@ -251,7 +251,7 @@ void loop() {
       sendDataToServer(temperature, humidity);
       
     } else {
-      Serial.println("⏭️  Passage à la prochaine lecture...");
+      Serial.println("Passage à la prochaine lecture...");
     }
     
     Serial.println();  // Ligne vide pour la lisibilité
@@ -270,25 +270,25 @@ void loop() {
  * Peut être appelée périodiquement pour diagnostiquer les problèmes
  */
 void checkSystemHealth() {
-  Serial.println("\n🔍 Vérification de la santé du système:");
+  Serial.println("\n Vérification de la santé du système:");
   
   // Vérifier la connexion WiFi
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("✅ WiFi: Connecté");
+    Serial.println(" WiFi: Connecté");
     Serial.print("   RSSI: ");
     Serial.print(WiFi.RSSI());
     Serial.println(" dBm");
   } else {
-    Serial.println("❌ WiFi: Déconnecté");
+    Serial.println(" WiFi: Déconnecté");
   }
   
   // Vérifier la mémoire libre
-  Serial.print("💾 Mémoire libre: ");
+  Serial.print("Mémoire libre: ");
   Serial.print(ESP.getFreeHeap());
   Serial.println(" bytes");
   
   // Temps de fonctionnement
-  Serial.print("⏱️  Uptime: ");
+  Serial.print("Uptime: ");
   Serial.print(millis() / 1000);
   Serial.println(" secondes");
   
